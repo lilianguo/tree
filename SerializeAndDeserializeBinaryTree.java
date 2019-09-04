@@ -24,10 +24,13 @@ public class SerializeAndDeserializeBinaryTree {
             queue.add(node.left);
             queue.add(node.right);
         }
-        while(queue.get(queue.size() - 1) != null) {
+        
+        while(queue.get(queue.size() - 1) == null) {
             queue.remove(queue.size() - 1);
         }
-        StringBuilder sb = new StringBuilder("{");
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
         sb.append(queue.get(0).val);
         for (int i = 1; i < queue.size(); i++) {
             TreeNode node = queue.get(i);
@@ -45,7 +48,7 @@ public class SerializeAndDeserializeBinaryTree {
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        if (data.equals("")) {
+        if (data == null || data.length() == 0) {
             return null;
         }
         String[] sArray = data.substring(1, data.length() - 1).split(",");
@@ -68,8 +71,8 @@ public class SerializeAndDeserializeBinaryTree {
                 index++;
             }
             isLeft = !isLeft;
-        } 
-        return res;       
+        }
+        return res;
     }
 }
 
