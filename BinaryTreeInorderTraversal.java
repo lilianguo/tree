@@ -48,4 +48,33 @@ class BinaryTreeInOrderTraversal {
         }
         return res;
     }
+
+    // morris no stack no recursion
+    // https://www.cnblogs.com/anniekim/archive/2013/06/15/morristraversal.html
+    public void morris(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        TreeNode curr, prev;
+        curr = root;
+        while(curr != null) {
+            if (curr.left == null) {
+                System.out.println("curr.val" + curr.val + " ");
+                curr = curr.right;
+            } else {
+                pre = curr.left;
+                while(prev.right != null && prev.right != curr) {
+                    prev = prev.right;
+                }
+                if (prev.right == null) {
+                    prev.right = curr;
+                    curr = curr.left;
+                } else {
+                    prev.right = null;
+                    System.out.println("curr.val" + curr.val + " ");
+                    curr = curr.right;                                   
+                }
+            }
+        }
+    }
 }
