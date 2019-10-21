@@ -1,6 +1,7 @@
 /*
 1026. Maximum Difference Between Node and Ancestor
-Given a rooted binary tree, return the lowest common ancestor of its deepest leaves.
+Given a rooted binary tree, 
+return the lowest common ancestor of its deepest leaves.
 
 Recall that:
 
