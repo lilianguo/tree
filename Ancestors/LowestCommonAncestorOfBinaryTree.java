@@ -22,22 +22,18 @@ Explanation: The LCA of nodes 5 and 4 is 5, since a node can be a descendant of 
 
 */
 class LowestCommonAncestorOfBinaryTree {
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode A, TreeNode B) {
+        // write your code here
         if(root == null) return null;
-        if (root.val == p.val || root.val == q.val) {
+        if(root == A || root == B) {
             return root;
         }
-        TreeNode left = lowestCommonAncestor(root.left, p, q);
-        TreeNode right = lowestCommonAncestor(root.right, p, q);
-        if (left != null && right != null) {
-            return root;
-        }
-        if (left != null) {
-            return left;
-        }
-        if (right != null) {
-            return right;
-        }
+        TreeNode left = lowestCommonAncestor(root.left, A, B);
+        TreeNode right = lowestCommonAncestor(root.right, A, B);
+        
+        if(left != null && right != null) return root;
+        if(left != null ) return left;
+        if(right != null) return right;
         return null;
     }
 }

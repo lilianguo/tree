@@ -33,33 +33,16 @@ Output: [2,4,5]
 */
 class LowerstCommonAncestorOfDeepestLeaves {
     public TreeNode lcaDeepestLeaves(TreeNode root) {
-        if (root == null) {
-            return null;
-        }
-        if (root.left == null && root.right == null) {
+        if (root == null || getHeight(root.left) == getHeight(root.right)) {
             return root;
         }
-        if (root.left == null) {
-            return lcaDeepestLeaves(root.right);
-        }
-        if (root.right == null) {
-            return lcaDeepestLeaves(root.left);
-        }
-        int depL = getDepth(root.left);
-        int depR = getDepth(root.right);
-        if (depL == depR) {
-            return root;
-        }
-        if (depL > depR) {
-            return lcaDeepestLeaves(root.left);
-        }
-        return lcaDeepestLeaves(root.right);
+        return lcaDeepestLeaves(getHeight(root.left) > getHeight(root.right) ? root.left : root.right);
     }
     
-    private int getDepth(TreeNode root) {
+    private int getHeight(TreeNode root) {
         if (root == null) {
             return 0;
         }
-        return Math.max(getDepth(root.left), getDepth(root.right)) + 1;
+        return Math.max(getHeight(root.left), getHeight(root.right)) + 1;
     }
 }
