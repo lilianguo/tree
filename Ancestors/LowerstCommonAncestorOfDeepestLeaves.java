@@ -30,8 +30,11 @@ Example 3:
 Input: root = [1,2,3,4,5]
 Output: [2,4,5]
 
+https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/discuss/334583/Java-O(n)-Short-and-Simple-Recursion
 */
 class LowerstCommonAncestorOfDeepestLeaves {
+    // time: n^2
+    // space: n
     public TreeNode lcaDeepestLeaves(TreeNode root) {
         if (root == null || getHeight(root.left) == getHeight(root.right)) {
             return root;
@@ -45,4 +48,20 @@ class LowerstCommonAncestorOfDeepestLeaves {
         }
         return Math.max(getHeight(root.left), getHeight(root.right)) + 1;
     }
+
+    /*
+    HashMap<TreeNode, Integer> heights = new HashMap<TreeNode,Integer>();
+    
+    public TreeNode lcaDeepestLeaves(TreeNode root) {
+        if(root==null || height(root.right)==height(root.left))return root;
+        return lcaDeepestLeaves(height(root.left)>height(root.right)?root.left:root.right);
+    }
+    
+    public int height(TreeNode root){
+        if(root==null)return 0;
+        if(heights.containsKey(root))return heights.get(root);
+        heights.put(root,1 + Math.max(height(root.left),height(root.right)));
+        return heights.get(root);
+    }
+    */
 }
