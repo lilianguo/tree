@@ -32,40 +32,24 @@ class BinaryTreeInorderTraversal {
         }
     }
 
-    public List<Integer> traverseWithStack(TreeNode node) {
-        List<Integer> list = new ArrayList<>();
-        if (node == null) {
-            return list;
-        }
+    public List<Integer> traverseWithStack(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
         Stack<TreeNode> stack = new Stack<>();
-        while(node != null) {
-            stack.push(node);
-            node = node.left;
-        }
-        while(!stack.isEmpty()) {
-            TreeNode curr = stack.peek();
-            list.add(curr.val);
-            if (curr.right != null) {
-                curr = curr.right;
-                while(curr != null) {
-                    stack.push(curr);
-                    curr = curr.left;
-                }
-            } else {
-                curr = stack.pop();
-                while(!stack.isEmpty() && stack.peek().right == curr) {
-                    curr = stack.pop();
-                }
+        TreeNode curr = root;
+        while(curr != null || !stack.isEmpty()) {
+            while(curr != null) {
+                stack.push(curr);
+                curr = curr.left;
             }
+            curr = stack.pop();
+            res.add(curr.val);
+            curr = curr.right;
         }
-        return list;
+        return res;
     }
 
     public List<Integer> traverseWithRecursion(TreeNode root) {
         List<Integer> list = new ArrayList<>();
-        if (root == null) {
-            return list;
-        }
         helper(root, list);
         return list;
     }
