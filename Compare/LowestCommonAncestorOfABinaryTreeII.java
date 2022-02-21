@@ -30,34 +30,33 @@ class Solution {
   // Compared to I, p and q might not exist in tree root
   // time limit exceed
   public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-    if (root == null || !isInTree(root, p) || !isInTree(root, q)) {
-      return null;
-    }
-    if (p == root || q == root) {
-      return root;
-    }
-    if ((isInTree(root.left, p) && isInTree(root.right, q)) ||
-        (isInTree(root.left, q) && isInTree(root.right, p))) {
-      return root;
-    }
-    if (lowestCommonAncestor(root.left, p, q) == null) {
-      return lowestCommonAncestor(root.right, p, q);
-    }
-    return lowestCommonAncestor(root.left, p, q);
+    boolean pFound = nodeFound(root, p);
+    boolean qFound = nodeFound(root, q);
+    if (pFound && qFound)
+      return helper(root, p, q);
+    return null;
+  }
+
+  private boolean nodeFound(TreeNode root, TreeNode p) {
+    if (root == null)
+      return false;
+    if (root == p)
+      return true;
+    return nodeFound(root.left, p) || nodeFound(root.right, p);
   }
 
 
-  private boolean isInTree(TreeNode root, TreeNode target) {
-    if (target == null) {
-      return true;
+  private TreeNode helper(TreeNode root, TreeNode p, TreeNode q) {
+    if (root == null || root == q || root == p) {
+      return root;
     }
-    if (root == null) {
-      return false;
-    }
-    if (target == root) {
-      return true;
-    }
-    return isInTree(root.left, target) || isInTree(root.right, target);
+    TreeNode left = helper(root.left, p, q);
+    TreeNode right = helper(root.right, p, q);
+    if (left != null && right != null)
+      return root;
+    if (left == null)
+      return right;
+    return left;
   }
 
   /// one pass solution: dfs tree, return pair (node, # of nodes see)
