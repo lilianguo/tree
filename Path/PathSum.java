@@ -20,6 +20,7 @@
  * A leaf is a node with no children.
  */
 class Solution {
+  // Recursion: T:O(N) S:O(N) N is number of nodes in tree
   public boolean hasPathSum(TreeNode root, int targetSum) {
     if (root == null) return false;
     if (root.left == null && root.right == null && root.val == targetSum) return true;
